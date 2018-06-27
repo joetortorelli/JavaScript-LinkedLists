@@ -18,35 +18,33 @@ class LinkedList {
         return this;
       }
     }
-}
-
-function displayList(list) { 
-    let curr = list.head;
-    let arr = [];
-    while (curr && curr !== null) { 
-        arr.push(curr.value);
-        curr = curr.next
+    reverseList() { 
+        let curr = this.head;
+        let prev, nxt = null;
+        while (curr) { 
+            nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        this.head = prev;
+        this.displayList();
     }
-    console.log(arr.join(' -> '))
-}
-
-function reverseList(list) { 
-    let curr = list.head;
-    let prev, next = null;
-    while (curr !== null) { 
-        next = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = next; 
+    displayList() { 
+        let curr = this.head; 
+        let arr = [];
+        while (curr) { 
+            arr.push(curr.value);
+            curr = curr.next;
+        }
+        console.log(arr.join(' -> '));
     }
-    list.head = prev;
-    return list;
 }
 
 let list = new LinkedList();
-list.addToEnd(1);
-list.addToEnd(2);
-list.addToEnd(3);
+const n = 5; 
 
-displayList(list);
-displayList(reverseList(list));
+for (let i = 1; i <= n; i++) list.addToEnd(i);
+
+list.displayList();
+list.reverseList();
